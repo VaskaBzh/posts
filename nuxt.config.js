@@ -5,19 +5,25 @@ const api = axios.create({
   baseURL: "http://localhost:3002",
 });
 
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  router: {
-    middleware: ['redirects']
-  },
+  ssr: true,
   modules: [
     '@nuxtjs/sitemap'
   ],
   sitemap: {
     routes: async () => {
+      let routes = [
+          '/',
+          '/posts',
+      ];
       const { data } = await api.get('/posts');
-      return data.map(post => `/posts/${post.id}`);
+      routes = [
+        ...routes,
+        ...data.map(post => `/posts/${post.id}`),
+        ...data.map(post => `/comments/${post.id}`)
+      ]
+      return routes;
     }
   }
 })
