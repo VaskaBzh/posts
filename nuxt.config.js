@@ -2,10 +2,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3002",
+  baseURL: "http://localhost:4000",
 });
 
-console.log(api)
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,

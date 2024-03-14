@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "db": "json-server --watch db/db.json --port 3002",
+    "db": "json-server --watch db/db.json --port 4000",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

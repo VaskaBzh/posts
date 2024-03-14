@@ -3,30 +3,28 @@ import api from "~/api/api.js";
 import { PostData } from "~/DTO/PostData.js";
 
 export default defineNuxtComponent({
-  name: "PostsPage",
-  data() {
-    return {
-      posts: [],
-    };
-  },
-  head(nuxtApp) {
-    return {
-      title: 'Посты',
-      meta: [
-        { name: 'description', content: 'Смотрите все посты здесь!' },
-        { name: 'keywords', content: 'seo-keywords' }
-      ],
-    }
-  },
-  async mounted() {
-    try {
-      const response = await api.get("/posts");
-
-      this.posts = response.data.map(postRecord => new PostData(postRecord));
-    } catch(err) {
-      console.error(err);
-    }
-  }
+	name: "PostsPage",
+	async asyncData() {
+		try {
+			const response = await api.get("/posts");
+			return { posts: response.data };
+		} catch (error) {
+			console.error("Ошибка при загрузке постов:", error);
+			return { posts: [] };
+		}
+	},
+	head(nuxtApp) {
+		return {
+			title: 'Посты',
+			meta: [
+				{ name: 'description', content: 'Смотрите все посты здесь!' },
+				{ name: 'keywords', content: 'seo-keywords' }
+			],
+		}
+	},
+	mounted() {
+		this.posts = this.posts.map(postRecord => new PostData(postRecord));
+	}
 })
 </script>
 

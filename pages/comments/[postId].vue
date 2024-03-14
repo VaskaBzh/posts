@@ -4,33 +4,27 @@ import { CommentData } from "~/DTO/CommentData.js";
 
 export default defineNuxtComponent({
   name: "CommentsPage",
-  data() {
-    return {
-      comments: [],
-    };
-  },
-  head(nuxtApp) {
+  head({ _route }) {
     return {
       title: 'Комментарии',
       meta: [
-        { name: 'description', content: `Смотрите все комментарии поста ${nuxtApp._route.params.postId}` },
+        { name: 'description', content: `Смотрите все комментарии поста ${_route.params.postId}` },
         { name: 'keywords', content: 'seo-keywords' }
       ],
     }
   },
-  methods: {
-    async getCommentsByPostId() {
-      try {
-        const response = await api.get(`/comments?postId=${this.$route.params.postId}`);
-
-        this.comments = response.data.map(commentRecord => new CommentData(commentRecord));
-      } catch(err) {
-        console.error(err);
-      }
-    }
+  async asyncData({ _route }) {
+	  try {
+		  const response = await api.get(`/comments?postId=${useRoute().params.postId}`);
+		  
+		  return { comments: response.data };
+	  } catch(err) {
+		  console.error(err);
+		  return { comments: [] };
+	  }
   },
-  async mounted() {
-    await this.getCommentsByPostId();
+  mounted() {
+	this.comments = this.comments.map(commentRecord => new CommentData(commentRecord))
   }
 })
 </script>

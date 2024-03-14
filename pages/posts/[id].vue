@@ -4,11 +4,6 @@ import { PostData } from "~/DTO/PostData";
 
 export default defineNuxtComponent({
   name: "TargetPostPage",
-  data() {
-    return {
-      post: {},
-    };
-  },
   head({ _route }) {
     return {
       title: _route.query.seo_title,
@@ -18,19 +13,18 @@ export default defineNuxtComponent({
       ],
     }
   },
-  methods: {
-    async getPost() {
-      try {
-        const response = await api.get(`/posts/${this.$route.params.id}`);
-
-        this.post = new PostData(response.data);
-      } catch(err) {
-        console.error(err);
-      }
-    },
+  async asyncData() {
+  	try {
+  		const response = await api.get(`/posts/${useRoute().params.id}`);
+  		
+  		return { post: response.data };
+  	} catch(err) {
+  		console.error(err);
+  		return { post: _route.params.id };
+  	}
   },
-  async mounted() {
-    await this.getPost();
+  mounted() {
+	this.post = new PostData(this.post)
   }
 })
 </script>

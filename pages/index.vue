@@ -18,15 +18,6 @@ export default defineNuxtComponent({
       ],
     }
   },
-  async mounted() {
-    try {
-      const response = await api.get("/posts");
-
-      this.posts = response.data.map(postRecord => new PostData(postRecord));
-    } catch(err) {
-      console.error(err);
-    }
-  }
 })
 </script>
 
