@@ -5,6 +5,7 @@ const api = axios.create({
   baseURL: "http://localhost:3002",
 });
 
+console.log(api)
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
@@ -12,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap'
   ],
   sitemap: {
+    path: '/sitemap.xml',
     routes: async () => {
       let routes = [
           '/',

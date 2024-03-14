@@ -23,19 +23,24 @@ bun install
 ## Development Server
 
 Start the development server on `http://localhost:3000`:
+Start the development json db on `http://localhost:3002`:
 
 ```bash
 # npm
 npm run dev
+npm run db
 
 # pnpm
 pnpm run dev
+pnpm run db
 
 # yarn
 yarn dev
+yarn db
 
 # bun
 bun run dev
+bun run db
 ```
 
 ## Production
